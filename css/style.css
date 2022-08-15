@@ -295,7 +295,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 #what_wrapper{position: relative; background: #f7f8f9;}
 #what{position: relative; display: table; width: 100%;}
-#what .left_box_wrapper{position: relative; overflow: hidden; display: table-cell; width: 50%; background: url(../images/img2.jpg) center center no-repeat; background-size: cover; vertical-align: middle;}
+#what .left_box_wrapper{position: relative; overflow: hidden; display: table-cell; width: 50%; background: url(../images/firstmockup.png) center center no-repeat; background-size: cover; vertical-align: middle;}
 #what .left_box{padding: 110px;}
 #what .left_box_inner{}
 #what .right_box_wrapper{position: relative; overflow: hidden; display: table-cell; width: 50%; vertical-align: middle;}
