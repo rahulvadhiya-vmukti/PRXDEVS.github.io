@@ -57,6 +57,12 @@
 </head>
 <body class="onepage front" data-spy="scroll" data-target="#top" data-offset="81">
 
+  <section id="section01" class="demo">
+    <img src="prxleft.png" id="bg">
+    <img src="prxright.png" id="right">
+    <img src="0PRx.png" id="prx">
+    <a href="#main"><span></span>Scroll Down</a>
+</section>
 
 <div id="main">
 
@@ -677,6 +683,26 @@
   })();
   </script>
   <!--End of Tawk.to Script-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    
+    <script>
+      gsap.to("#bg",{
+        scrollTrigger:{
+            scrub:1
+        },
+        x: -10000,
+      })
+
+      gsap.to("#right",{
+        scrollTrigger:{
+            scrub:1
+        },
+        x: 10000,
+      })
+    </script>
+  
 </body>
 
 <!-- Mirrored from template-preview.com/bootstrap-templates/black-white/Black-version/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 12 Aug 2022 06:49:59 GMT -->
