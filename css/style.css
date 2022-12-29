@@ -45,6 +45,8 @@ section img {
 }
 
 #prx {
+  max-width: 100%;
+  /* position: fixed; */
   z-index: -1;
 }
 
@@ -53,7 +55,8 @@ section img {
 .demo a {
   position: absolute;
   bottom: 20px;
-  left: 45.5%;
+  left:45.5%;
+  /* right: auto; */
   z-index: 2;
   display: inline-block;
   -webkit-transform: translate(0, -50%);
@@ -963,5 +966,5 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 
 
-
 }
+
