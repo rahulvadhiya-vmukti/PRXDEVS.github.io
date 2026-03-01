@@ -1,159 +1,159 @@
 // Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger);
 
-document.addEventListener('DOMContentLoaded', () => {
-    // const cursor = document.querySelector('#cursor');
-    const mm = gsap.matchMedia(); // Create a media query listener
+// document.addEventListener('DOMContentLoaded', () => {
+//     // const cursor = document.querySelector('#cursor');
+//     const mm = gsap.matchMedia(); // Create a media query listener
 
-    // 1. RESPONSIVE SETUP FOR ALL DEVICES
-    mm.add({
-        // Desktop / Laptop
-        isDesktop: "(min-width: 1025px)",
-        // Tablet / Mobile
-        isMobile: "(max-width: 1024px)"
-    }, (context) => {
-        let { isDesktop, isMobile } = context.conditions;
+//     // 1. RESPONSIVE SETUP FOR ALL DEVICES
+//     mm.add({
+//         // Desktop / Laptop
+//         isDesktop: "(min-width: 1025px)",
+//         // Tablet / Mobile
+//         isMobile: "(max-width: 1024px)"
+//     }, (context) => {
+//         let { isDesktop, isMobile } = context.conditions;
 
-        // --- CUSTOM CURSOR (Only for Desktop) ---
-        // if (isDesktop && cursor) {
-        //     cursor.style.display = "block";
-        //     document.addEventListener('mousemove', (e) => {
-        //         gsap.to(cursor, {
-        //             x: e.clientX,
-        //             y: e.clientY,
-        //             duration: 0.1,
-        //             ease: "power2.out"
-        //         });
-        //     });
+//         // --- CUSTOM CURSOR (Only for Desktop) ---
+//         // if (isDesktop && cursor) {
+//         //     cursor.style.display = "block";
+//         //     document.addEventListener('mousemove', (e) => {
+//         //         gsap.to(cursor, {
+//         //             x: e.clientX,
+//         //             y: e.clientY,
+//         //             duration: 0.1,
+//         //             ease: "power2.out"
+//         //         });
+//         //     });
 
-        //     const hoverElements = document.querySelectorAll('a, button, .video-box, .bento-item');
-        //     hoverElements.forEach(el => {
-        //         el.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 4, duration: 0.3 }));
-        //         el.addEventListener('mouseleave', () => gsap.to(cursor, { scale: 1, duration: 0.3 }));
-        //     });
-        // } else {
-        //     // Hide cursor on touch devices to avoid floating dots
-        //     if (cursor) cursor.style.display = "none";
-        // }
+//         //     const hoverElements = document.querySelectorAll('a, button, .video-box, .bento-item');
+//         //     hoverElements.forEach(el => {
+//         //         el.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 4, duration: 0.3 }));
+//         //         el.addEventListener('mouseleave', () => gsap.to(cursor, { scale: 1, duration: 0.3 }));
+//         //     });
+//         // } else {
+//         //     // Hide cursor on touch devices to avoid floating dots
+//         //     if (cursor) cursor.style.display = "none";
+//         // }
 
 
-        //         if (isDesktop && cursor) {
+//         //         if (isDesktop && cursor) {
 
-        //     let hasMoved = false;
+//         //     let hasMoved = false;
 
-        //     document.addEventListener('mousemove', (e) => {
+//         //     document.addEventListener('mousemove', (e) => {
 
-        //         // Show cursor only after first movement
-        //         if (!hasMoved) {
-        //             cursor.style.opacity = "1";
-        //             hasMoved = true;
-        //         }
+//         //         // Show cursor only after first movement
+//         //         if (!hasMoved) {
+//         //             cursor.style.opacity = "1";
+//         //             hasMoved = true;
+//         //         }
 
-        //         gsap.to(cursor, {
-        //             x: e.clientX,
-        //             y: e.clientY,
-        //             duration: 0.1,
-        //             ease: "power2.out"
-        //         });
-        //     });
+//         //         gsap.to(cursor, {
+//         //             x: e.clientX,
+//         //             y: e.clientY,
+//         //             duration: 0.1,
+//         //             ease: "power2.out"
+//         //         });
+//         //     });
 
-        //     const hoverElements = document.querySelectorAll('a, button, .video-box, .bento-item');
-        //     hoverElements.forEach(el => {
-        //         el.addEventListener('mouseenter', () =>
-        //             gsap.to(cursor, { scale: 4, duration: 0.3 })
-        //         );
-        //         el.addEventListener('mouseleave', () =>
-        //             gsap.to(cursor, { scale: 1, duration: 0.3 })
-        //         );
-        //     });
+//         //     const hoverElements = document.querySelectorAll('a, button, .video-box, .bento-item');
+//         //     hoverElements.forEach(el => {
+//         //         el.addEventListener('mouseenter', () =>
+//         //             gsap.to(cursor, { scale: 4, duration: 0.3 })
+//         //         );
+//         //         el.addEventListener('mouseleave', () =>
+//         //             gsap.to(cursor, { scale: 1, duration: 0.3 })
+//         //         );
+//         //     });
 
-        // } else {
-        //     if (cursor) cursor.style.display = "none";
-        // }
+//         // } else {
+//         //     if (cursor) cursor.style.display = "none";
+//         // }
 
-        // --- ABOUT SECTION MARGIN (Responsive) ---
-        gsap.to(".about-brief", {
-            scrollTrigger: {
-                trigger: ".about-brief",
-                start: "top bottom",
-                end: "top center",
-                scrub: 1
-            },
-            // On mobile, we use smaller margins (e.g., 2% instead of 5%)
-            marginLeft: isDesktop ? "5%" : "2%",
-            marginRight: isDesktop ? "5%" : "2%",
-            marginTop: isDesktop ? "5%" : "30px",
-            marginBottom: isDesktop ? "5%" : "30px",
-            borderRadius: isDesktop ? "60px" : "30px",
-            ease: "power1.inOut"
-        });
+//         // --- ABOUT SECTION MARGIN (Responsive) ---
+//         gsap.to(".about-brief", {
+//             scrollTrigger: {
+//                 trigger: ".about-brief",
+//                 start: "top bottom",
+//                 end: "top center",
+//                 scrub: 1
+//             },
+//             // On mobile, we use smaller margins (e.g., 2% instead of 5%)
+//             marginLeft: isDesktop ? "5%" : "2%",
+//             marginRight: isDesktop ? "5%" : "2%",
+//             marginTop: isDesktop ? "5%" : "30px",
+//             marginBottom: isDesktop ? "5%" : "30px",
+//             borderRadius: isDesktop ? "60px" : "30px",
+//             ease: "power1.inOut"
+//         });
 
-        return () => {
-            // Optional cleanup when switching breakpoints
-        };
-    });
+//         return () => {
+//             // Optional cleanup when switching breakpoints
+//         };
+//     });
 
-    // 2. HERO REVEAL & PARALLAX (Works on all)
-    gsap.to(".hero-content", {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power4.out"
-    });
+//     // 2. HERO REVEAL & PARALLAX (Works on all)
+//     gsap.to(".hero-content", {
+//         opacity: 1,
+//         y: 0,
+//         duration: 1.5,
+//         ease: "power4.out"
+//     });
 
-    // gsap.to(".hero-content", {
-    //     scrollTrigger: {
-    //         trigger: ".hero",
-    //         start: "top top",
-    //         end: "bottom top",
-    //         scrub: true
-    //     },
-    //     y: 100,
-    //     opacity: 0,
-    //     ease: "none"
-    // });
-    gsap.to(".hero-content", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: window.innerWidth > 1024, // disable scrub on mobile
-        },
-        y: 100,
-        opacity: 0,
-        ease: "none"
-    });
+//     // gsap.to(".hero-content", {
+//     //     scrollTrigger: {
+//     //         trigger: ".hero",
+//     //         start: "top top",
+//     //         end: "bottom top",
+//     //         scrub: true
+//     //     },
+//     //     y: 100,
+//     //     opacity: 0,
+//     //     ease: "none"
+//     // });
+//     gsap.to(".hero-content", {
+//         scrollTrigger: {
+//             trigger: ".hero",
+//             start: "top top",
+//             end: "bottom top",
+//             scrub: window.innerWidth > 1024, // disable scrub on mobile
+//         },
+//         y: 100,
+//         opacity: 0,
+//         ease: "none"
+//     });
 
-    // 3. CONTENT REVEALS
-    const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach((el) => {
-        gsap.to(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: "top 100%", // Trigger slightly later for better mobile feel
-                toggleActions: "play none none reverse"
-            },
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out"
-        });
-    });
+//     // 3. CONTENT REVEALS
+//     const reveals = document.querySelectorAll('.reveal');
+//     reveals.forEach((el) => {
+//         gsap.to(el, {
+//             scrollTrigger: {
+//                 trigger: el,
+//                 start: "top 100%", // Trigger slightly later for better mobile feel
+//                 toggleActions: "play none none reverse"
+//             },
+//             opacity: 1,
+//             y: 0,
+//             duration: 1,
+//             ease: "power2.out"
+//         });
+//     });
 
-    // 4. ABOUT CONTENT STAGGER
-    gsap.from(".about-content > div", {
-        scrollTrigger: {
-            trigger: ".about-content",
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-        },
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: "power3.out"
-    });
-});
+//     // 4. ABOUT CONTENT STAGGER
+//     gsap.from(".about-content > div", {
+//         scrollTrigger: {
+//             trigger: ".about-content",
+//             start: "top 85%",
+//             toggleActions: "play none none reverse"
+//         },
+//         y: 30,
+//         opacity: 0,
+//         duration: 1,
+//         stagger: 0.15,
+//         ease: "power3.out"
+//     });
+// });
 
 // 7. CREATIVE LAB PHYSICS ENGINE
 // const initPhysicsLab = () => {
@@ -299,6 +299,96 @@ document.addEventListener('DOMContentLoaded', () => {
 //     const runner = Runner.create();
 //     Runner.run(runner, engine);
 // };
+
+window.addEventListener("load", () => {
+
+    const mm = gsap.matchMedia();
+
+    mm.add({
+        isDesktop: "(min-width: 1025px)",
+        isMobile: "(max-width: 1024px)"
+    }, (context) => {
+
+        const { isDesktop } = context.conditions;
+
+        // ABOUT SECTION
+        gsap.to(".about-brief", {
+            scrollTrigger: {
+                trigger: ".about-brief",
+                start: "top bottom",
+                end: "top center",
+                scrub: isDesktop ? 1 : false
+            },
+            marginLeft: isDesktop ? "5%" : "2%",
+            marginRight: isDesktop ? "5%" : "2%",
+            marginTop: isDesktop ? "5%" : "30px",
+            marginBottom: isDesktop ? "5%" : "30px",
+            borderRadius: isDesktop ? "60px" : "30px",
+            ease: "power1.inOut"
+        });
+
+    });
+
+    // HERO REVEAL
+    gsap.fromTo(".hero-content",
+        { opacity: 0, y: 40 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        }
+    );
+
+    // HERO SCROLL (Desktop Only)
+    if (window.innerWidth > 1024) {
+        gsap.to(".hero-content", {
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            },
+            y: 100,
+            opacity: 0,
+            ease: "none"
+        });
+    }
+
+    // CONTENT REVEALS
+    document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.fromTo(el,
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    });
+
+    // ABOUT STAGGER
+    gsap.from(".about-content > div", {
+        scrollTrigger: {
+            trigger: ".about-content",
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out"
+    });
+
+    ScrollTrigger.refresh();
+});
 
 let physicsInitialized = false;
 
@@ -589,11 +679,25 @@ initHeroOrb();
 // header file call in html script
 // Load Header
 // Load Header
+
+
+// fetch('/header.html')
+//     .then(res => res.text())
+//     .then(data => {
+//         document.getElementById('header-placeholder').innerHTML = data;
+//         initNavbar(); // initialize AFTER injection
+//     });
+
 fetch('/header.html')
     .then(res => res.text())
     .then(data => {
         document.getElementById('header-placeholder').innerHTML = data;
-        initNavbar(); // initialize AFTER injection
+        initNavbar();
+
+        // Delay refresh slightly to allow layout paint
+        setTimeout(() => {
+            ScrollTrigger.refresh(true);
+        }, 200);
     });
 
 function initNavbar() {
@@ -740,6 +844,6 @@ ${message}
 
 });
 
-window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-});
+// window.addEventListener("load", () => {
+//     ScrollTrigger.refresh();
+// });
