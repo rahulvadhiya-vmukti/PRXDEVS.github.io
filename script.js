@@ -341,7 +341,7 @@ window.addEventListener("load", () => {
             scrub: true
         },
         y: 100,
-        opacity: 0,
+        // opacity: 0,
         ease: "none"
     });
 
