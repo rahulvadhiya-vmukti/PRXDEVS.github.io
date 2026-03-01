@@ -156,26 +156,172 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 7. CREATIVE LAB PHYSICS ENGINE
+// const initPhysicsLab = () => {
+
+//     // Disable physics for screens below 1000px
+//     if (window.innerWidth < 1000) {
+//         console.log("Creative Lab disabled on small screens for performance.");
+//         return;
+//     }
+
+//     const container = document.querySelector('#physics-container');
+//     if (!container) return;
+
+//     // Pull Matter.js modules
+//     const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
+
+//     // Create Engine
+//     const engine = Engine.create();
+//     const world = engine.world;
+
+//     // Start with NO gravity so cards stay in place initially
+//     engine.gravity.y = 0;
+
+//     // Define responsive card sizes
+//     const isMobile = window.innerWidth < 1024;
+//     const cardWidth = isMobile ? 90 : 230;
+//     const cardHeight = isMobile ? 40 : 170;
+
+//     // Create invisible boundaries (Walls)
+//     const wallThickness = 50;
+//     const wallOptions = { isStatic: true, render: { visible: false } };
+
+//     const ground = Bodies.rectangle(container.offsetWidth / 2, container.offsetHeight + wallThickness / 2, container.offsetWidth, wallThickness, wallOptions);
+//     const ceiling = Bodies.rectangle(container.offsetWidth / 2, -wallThickness / 2, container.offsetWidth, wallThickness, wallOptions);
+//     const leftWall = Bodies.rectangle(-wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions);
+//     const rightWall = Bodies.rectangle(container.offsetWidth + wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions);
+
+//     // Placeholder project images (You can replace these with your actual image paths)
+//     const cardImages = [
+//         'https://picsum.photos/400/300?random=1',
+//         'https://picsum.photos/400/300?random=2',
+//         'https://picsum.photos/400/300?random=3',
+//         'https://picsum.photos/400/300?random=4',
+//         'https://picsum.photos/400/300?random=5',
+//         'https://picsum.photos/400/300?random=6'
+//     ];
+
+//     // const cards = cardImages.map((imgSrc, index) => {
+//     //     // Spread cards across the width and slightly stagger them vertically
+//     //     const columns = isMobile ? 2 : 3;
+//     //     const col = index % columns;
+//     //     const row = Math.floor(index / columns);
+
+//     //     // Calculate positions to spread them out like a messy grid initially
+//     //     const x = (container.offsetWidth / columns) * (col + 0.5) + (Math.random() - 0.5) * 100;
+//     //     const y = 100 + (row * 150) + (Math.random() - 0.5) * 50;
+
+//     //     // Create Physics Body
+//     //     const body = Bodies.rectangle(x, y, cardWidth, cardHeight, {
+//     //         restitution: 0.6,
+//     //         friction: 0.1,
+//     //         chamfer: { radius: 20 },
+//     //         render: { visible: false }
+//     //     });
+
+//     const cards = cardImages.map((imgSrc, index) => {
+//         // 1. Calculate random X across full width (minus card width to stay in bounds)
+//         const x = Math.random() * (container.offsetWidth - cardWidth) + cardWidth / 2;
+
+//         // 2. Calculate random Y in the top 50% of the container
+//         // We add an offset so they don't spawn directly on the "Explore Now" button
+//         const y = Math.random() * (container.offsetHeight * 0.5) + 50;
+
+//         // 3. Apply a random initial rotation to make it look more organic
+//         const initialRotation = (Math.random() - 0.5) * 1; // Between -0.5 and 0.5 radians
+
+//         const body = Bodies.rectangle(x, y, cardWidth, cardHeight, {
+//             restitution: 0.6,
+//             friction: 0.1,
+//             angle: initialRotation, // Set the initial tilt
+//             chamfer: { radius: 20 },
+//             render: { visible: false }
+//         });
+
+//         // Create HTML Element
+//         const element = document.createElement('div');
+//         element.className = 'lab-card';
+//         element.style.width = `${cardWidth}px`;
+//         element.style.height = `${cardHeight}px`;
+//         element.innerHTML = `<img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover;">`;
+//         container.appendChild(element);
+
+//         return { body, element };
+//     });
+
+//     // Add everything to the world
+//     Composite.add(world, [ground, ceiling, leftWall, rightWall, ...cards.map(c => c.body)]);
+
+//     // Mouse / Touch Interaction for Draggable Physics
+//     const mouse = Mouse.create(container);
+//     const mouseConstraint = MouseConstraint.create(engine, {
+//         mouse: mouse,
+//         constraint: {
+//             stiffness: 0.2,
+//             render: { visible: false }
+//         }
+//     });
+
+//     // FIX: Allow page scrolling even when mouse is over the physics container
+//     mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+//     mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+
+//     Composite.add(world, mouseConstraint);
+
+//     // Sync HTML with Physics Bodies
+//     Events.on(engine, 'afterUpdate', () => {
+//         cards.forEach(card => {
+//             const { position, angle } = card.body;
+//             // translate offsets the element so the center of the div matches the center of the body
+//             card.element.style.transform = `translate(${position.x - cardWidth / 2}px, ${position.y - cardHeight / 2}px) rotate(${angle}rad)`;
+//         });
+//     });
+
+//     // GSAP Scroll Trigger: Gravity "Drops" the cards
+//     gsap.to(engine.gravity, {
+//         y: 1, // Activate normal gravity
+//         scrollTrigger: {
+//             trigger: ".creative-lab",
+//             start: "top 20%", // Cards fall when section is near middle of screen
+//             onEnter: () => {
+//                 // Optional: Give them a tiny initial random push
+//                 cards.forEach(card => {
+//                     Matter.Body.applyForce(card.body, card.body.position, {
+//                         x: (Math.random() - 0.5) * 0.05,
+//                         y: 0.05
+//                     });
+//                 });
+//             }
+//         }
+//     });
+
+//     // Run the engine
+//     const runner = Runner.create();
+//     Runner.run(runner, engine);
+// };
+
+let physicsInitialized = false;
+
 const initPhysicsLab = () => {
+
+    // Disable physics for screens below 1000px
+    if (window.innerWidth < 1000) return;
+
     const container = document.querySelector('#physics-container');
-    if (!container) return;
+    if (!container || physicsInitialized) return;
 
-    // Pull Matter.js modules
-    const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
+    physicsInitialized = true; // Prevent double init
 
-    // Create Engine
+    const { Engine, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
+
     const engine = Engine.create();
     const world = engine.world;
 
-    // Start with NO gravity so cards stay in place initially
     engine.gravity.y = 0;
 
-    // Define responsive card sizes
-    const isMobile = window.innerWidth < 1024;
-    const cardWidth = isMobile ? 90 : 230;
-    const cardHeight = isMobile ? 40 : 170;
+    const cardWidth = 230;
+    const cardHeight = 170;
 
-    // Create invisible boundaries (Walls)
     const wallThickness = 50;
     const wallOptions = { isStatic: true, render: { visible: false } };
 
@@ -184,7 +330,6 @@ const initPhysicsLab = () => {
     const leftWall = Bodies.rectangle(-wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions);
     const rightWall = Bodies.rectangle(container.offsetWidth + wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions);
 
-    // Placeholder project images (You can replace these with your actual image paths)
     const cardImages = [
         'https://picsum.photos/400/300?random=1',
         'https://picsum.photos/400/300?random=2',
@@ -194,103 +339,70 @@ const initPhysicsLab = () => {
         'https://picsum.photos/400/300?random=6'
     ];
 
-    // const cards = cardImages.map((imgSrc, index) => {
-    //     // Spread cards across the width and slightly stagger them vertically
-    //     const columns = isMobile ? 2 : 3;
-    //     const col = index % columns;
-    //     const row = Math.floor(index / columns);
+    const cards = cardImages.map((imgSrc) => {
 
-    //     // Calculate positions to spread them out like a messy grid initially
-    //     const x = (container.offsetWidth / columns) * (col + 0.5) + (Math.random() - 0.5) * 100;
-    //     const y = 100 + (row * 150) + (Math.random() - 0.5) * 50;
-
-    //     // Create Physics Body
-    //     const body = Bodies.rectangle(x, y, cardWidth, cardHeight, {
-    //         restitution: 0.6,
-    //         friction: 0.1,
-    //         chamfer: { radius: 20 },
-    //         render: { visible: false }
-    //     });
-
-    const cards = cardImages.map((imgSrc, index) => {
-        // 1. Calculate random X across full width (minus card width to stay in bounds)
         const x = Math.random() * (container.offsetWidth - cardWidth) + cardWidth / 2;
-
-        // 2. Calculate random Y in the top 50% of the container
-        // We add an offset so they don't spawn directly on the "Explore Now" button
         const y = Math.random() * (container.offsetHeight * 0.5) + 50;
-
-        // 3. Apply a random initial rotation to make it look more organic
-        const initialRotation = (Math.random() - 0.5) * 1; // Between -0.5 and 0.5 radians
+        const initialRotation = (Math.random() - 0.5) * 1;
 
         const body = Bodies.rectangle(x, y, cardWidth, cardHeight, {
             restitution: 0.6,
             friction: 0.1,
-            angle: initialRotation, // Set the initial tilt
+            angle: initialRotation,
             chamfer: { radius: 20 },
             render: { visible: false }
         });
 
-        // Create HTML Element
         const element = document.createElement('div');
         element.className = 'lab-card';
         element.style.width = `${cardWidth}px`;
         element.style.height = `${cardHeight}px`;
         element.innerHTML = `<img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover;">`;
+
         container.appendChild(element);
 
         return { body, element };
     });
 
-    // Add everything to the world
     Composite.add(world, [ground, ceiling, leftWall, rightWall, ...cards.map(c => c.body)]);
 
-    // Mouse / Touch Interaction for Draggable Physics
     const mouse = Mouse.create(container);
     const mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
-        constraint: {
-            stiffness: 0.2,
-            render: { visible: false }
-        }
+        constraint: { stiffness: 0.2, render: { visible: false } }
     });
 
-    // FIX: Allow page scrolling even when mouse is over the physics container
+    // Allow scrolling
     mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
     mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
 
     Composite.add(world, mouseConstraint);
 
-    // Sync HTML with Physics Bodies
     Events.on(engine, 'afterUpdate', () => {
         cards.forEach(card => {
             const { position, angle } = card.body;
-            // translate offsets the element so the center of the div matches the center of the body
-            card.element.style.transform = `translate(${position.x - cardWidth / 2}px, ${position.y - cardHeight / 2}px) rotate(${angle}rad)`;
+            card.element.style.transform =
+                `translate3d(${position.x - cardWidth / 2}px, ${position.y - cardHeight / 2}px, 0) rotate(${angle}rad)`;
         });
     });
 
-    // GSAP Scroll Trigger: Gravity "Drops" the cards
-    gsap.to(engine.gravity, {
-        y: 1, // Activate normal gravity
-        scrollTrigger: {
-            trigger: ".creative-lab",
-            start: "top 20%", // Cards fall when section is near middle of screen
-            onEnter: () => {
-                // Optional: Give them a tiny initial random push
-                cards.forEach(card => {
-                    Matter.Body.applyForce(card.body, card.body.position, {
-                        x: (Math.random() - 0.5) * 0.05,
-                        y: 0.05
-                    });
-                });
-            }
+    const runner = Runner.create();
+
+    // Start engine only when visible
+    ScrollTrigger.create({
+        trigger: ".creative-lab",
+        start: "top 70%",
+        onEnter: () => {
+            Runner.run(runner, engine);
+            engine.gravity.y = 1;
+        },
+        onLeave: () => {
+            Runner.stop(runner);
+        },
+        onLeaveBack: () => {
+            Runner.stop(runner);
         }
     });
-
-    // Run the engine
-    const runner = Runner.create();
-    Runner.run(runner, engine);
 };
 
 // Initialize the lab
