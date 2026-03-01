@@ -589,8 +589,10 @@ gsap.from(".footer-cta h2", {
 
 // 10. HERO INTERACTION: WORD ROTATOR
 // const rotateWords = () => {
+
+// if (window.innerWidth <= 1024) return;
+
 //     const target = document.querySelector('.txt-rotate');
-//     // Updated list as per your new design request
 //     const words = ["Softwares", "Graphic Designs", "LOGO DESIGNS"];
 //     let i = 0;
 
@@ -607,27 +609,22 @@ gsap.from(".footer-cta h2", {
 //         });
 //     }, 3500);
 // };
+
 const rotateWords = () => {
 
-    if (window.innerWidth <= 1024) return;
-
     const target = document.querySelector('.txt-rotate');
-    const words = ["Softwares", "Graphic Designs", "LOGO DESIGNS"];
+    if (!target) return;
+
+    const words = ["Softwares", "Graphic Designs", "Logo Designs"];
     let i = 0;
 
     setInterval(() => {
-        gsap.to(target, {
-            opacity: 0,
-            y: -10,
-            duration: 0.4,
-            onComplete: () => {
-                i = (i + 1) % words.length;
-                target.innerText = words[i];
-                gsap.to(target, { opacity: 1, y: 0, duration: 0.4 });
-            }
-        });
-    }, 3500);
+        i = (i + 1) % words.length;
+        target.textContent = words[i];
+    }, 2500);
 };
+
+window.addEventListener("load", rotateWords);
 
 // New Function for Scroll Arrow
 const scrollToAbout = () => {
