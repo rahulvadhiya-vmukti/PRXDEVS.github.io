@@ -300,34 +300,26 @@ gsap.registerPlugin(ScrollTrigger);
 //     Runner.run(runner, engine);
 // };
 
+
 window.addEventListener("load", () => {
 
-    const mm = gsap.matchMedia();
+    const isMobile = window.innerWidth <= 1024;
 
-    mm.add({
-        isDesktop: "(min-width: 1025px)",
-        isMobile: "(max-width: 1024px)"
-    }, (context) => {
+    // 🚫 If Mobile → NO ANIMATIONS
+    if (isMobile) {
+        console.log("Mobile detected — Animations disabled.");
 
-        const { isDesktop } = context.conditions;
+        // Make sure everything is visible
+        document.querySelectorAll('.hero-content, .reveal, .about-content > div')
+            .forEach(el => {
+                el.style.opacity = "1";
+                el.style.transform = "none";
+            });
 
-        // ABOUT SECTION
-        gsap.to(".about-brief", {
-            scrollTrigger: {
-                trigger: ".about-brief",
-                start: "top bottom",
-                end: "top center",
-                scrub: isDesktop ? 1 : false
-            },
-            marginLeft: isDesktop ? "5%" : "2%",
-            marginRight: isDesktop ? "5%" : "2%",
-            marginTop: isDesktop ? "5%" : "30px",
-            marginBottom: isDesktop ? "5%" : "30px",
-            borderRadius: isDesktop ? "60px" : "30px",
-            ease: "power1.inOut"
-        });
+        return; // STOP HERE
+    }
 
-    });
+    // ✅ DESKTOP ONLY ANIMATIONS BELOW
 
     // HERO REVEAL
     gsap.fromTo(".hero-content",
@@ -340,22 +332,36 @@ window.addEventListener("load", () => {
         }
     );
 
-    // HERO SCROLL (Desktop Only)
-    if (window.innerWidth > 1024) {
-        gsap.to(".hero-content", {
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            },
-            y: 100,
-            opacity: 0,
-            ease: "none"
-        });
-    }
+    // HERO SCRUB
+    gsap.to(".hero-content", {
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        },
+        y: 100,
+        opacity: 0,
+        ease: "none"
+    });
 
-    // CONTENT REVEALS
+    // ABOUT SECTION
+    gsap.to(".about-brief", {
+        scrollTrigger: {
+            trigger: ".about-brief",
+            start: "top bottom",
+            end: "top center",
+            scrub: 1
+        },
+        marginLeft: "5%",
+        marginRight: "5%",
+        marginTop: "5%",
+        marginBottom: "5%",
+        borderRadius: "60px",
+        ease: "power1.inOut"
+    });
+
+    // REVEALS
     document.querySelectorAll('.reveal').forEach((el) => {
         gsap.fromTo(el,
             { opacity: 0, y: 40 },
@@ -582,9 +588,30 @@ gsap.from(".footer-cta h2", {
 });
 
 // 10. HERO INTERACTION: WORD ROTATOR
+// const rotateWords = () => {
+//     const target = document.querySelector('.txt-rotate');
+//     // Updated list as per your new design request
+//     const words = ["Softwares", "Graphic Designs", "LOGO DESIGNS"];
+//     let i = 0;
+
+//     setInterval(() => {
+//         gsap.to(target, {
+//             opacity: 0,
+//             y: -10,
+//             duration: 0.4,
+//             onComplete: () => {
+//                 i = (i + 1) % words.length;
+//                 target.innerText = words[i];
+//                 gsap.to(target, { opacity: 1, y: 0, duration: 0.4 });
+//             }
+//         });
+//     }, 3500);
+// };
 const rotateWords = () => {
+
+    if (window.innerWidth <= 1024) return;
+
     const target = document.querySelector('.txt-rotate');
-    // Updated list as per your new design request
     const words = ["Softwares", "Graphic Designs", "LOGO DESIGNS"];
     let i = 0;
 
@@ -611,15 +638,31 @@ const scrollToAbout = () => {
 };
 
 // 11. HERO INTERACTION: ORB FOLLOW
+// const initHeroOrb = () => {
+//     const orb = document.querySelector('.hero-orb');
+//     if (!orb) return;
+
+//     window.addEventListener('mousemove', (e) => {
+//         const { clientX, clientY } = e;
+//         gsap.to(orb, {
+//             x: clientX - window.innerWidth / 2,
+//             y: clientY - window.innerHeight / 2,
+//             duration: 2,
+//             ease: "power2.out"
+//         });
+//     });
+// };
 const initHeroOrb = () => {
+
+    if (window.innerWidth <= 1024) return;
+
     const orb = document.querySelector('.hero-orb');
     if (!orb) return;
 
     window.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
         gsap.to(orb, {
-            x: clientX - window.innerWidth / 2,
-            y: clientY - window.innerHeight / 2,
+            x: e.clientX - window.innerWidth / 2,
+            y: e.clientY - window.innerHeight / 2,
             duration: 2,
             ease: "power2.out"
         });
