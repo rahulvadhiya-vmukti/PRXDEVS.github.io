@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | PRXDEVS</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/contact.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+
+    <div id="header-placeholder"></div>
+    <main>
+
+        <!-- HERO -->
+        <section class="contact-hero">
+            <span class="contact-label">⚫ START A PROJECT</span>
+            <h1>
+                Let’s Build <br>
+                Something Exceptional.
+            </h1>
+            <p>
+                Tell us about your idea, your goals, and your vision.
+                We’ll respond with clarity and direction.
+            </p>
+        </section>
+
+        <!-- FORM SECTION -->
+        <section class="contact-section">
+
+            <div class="contact-container">
+
+                <!-- <form class="contact-form"> -->
+                <form id="contactForm" class="contact-form">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Company / Brand</label>
+                        <input type="text" id="company" placeholder="Company Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Service Required</label>
+                        <select id="service" required>
+                            <option value="">Select Service</option>
+                            <option>Web & Software Development</option>
+                            <option>AI Solutions</option>
+                            <option>Branding & Identity</option>
+                            <option>Graphic Design</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!-- <div class="form-group">
+                            <label>Estimated Budget</label>
+                            <select required>
+                                <option value="">Select Budget Range</option>
+                                <option>$1,000 - $5,000</option>
+                                <option>$5,000 - $15,000</option>
+                                <option>$15,000+</option>
+                            </select>
+                        </div> -->
+
+                    <div class="form-group">
+                        <label>Project Timeline</label>
+                        <select id="timeline">
+                            <option>Flexible</option>
+                            <option>2-3 Days</option>
+                            <option>1-2 weeks</option>
+                            <option>1-2 Months</option>
+                            <option>3+ Months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label>Project Details</label>
+                    <textarea id="message" rows="6" placeholder="Describe your project..."></textarea>
+                </div>
+
+                <button type="submit" class="cta-btn">Submit Inquiry</button>
+
+                </form>
+
+                <div class="contact-info">
+                    <h3>Direct Contact</h3>
+                    <p>Email: hello@PRXDEVS.com</p>
+                    <p>Location: India</p>
+                    <p>Response Time: Within 24 hours</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="main-footer2 reveal">
+            <div class="footer-container">
+                <!-- <div class="footer-cta">
+                    <span>READY TO START?</span>
+                    <h2 class="huge-text">LET'S BUILD <br> SOMETHING <span class="outline-text">GREAT.</span></h2>
+                    <a href="mailto:hello@PRXDEVS.com" class="footer-email">hello@PRXDEVS.com</a>
+                </div> -->
+
+                <div class="footer-bottom2">
+                    <div class="footer-logo">
+                        <h3>PRXDEVS</h3>
+                        <p>© 2026 Creative Design & Tech Studio. <br> Based in Ahmedabad.</p>
+                    </div>
+                    <div class="footer-socials">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Dribbble</a>
+                        <a href="#">Behance</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="/script.js"></script>
+
+</body>
+
+</html>

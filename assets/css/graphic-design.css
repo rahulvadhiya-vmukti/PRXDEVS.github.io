@@ -1,0 +1,109 @@
+/* HERO */
+.gd-hero {
+    padding: 180px 5% 120px;
+    text-align: center;
+}
+
+.gd-label {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    opacity: 0.6;
+}
+
+.gd-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin: 30px 0;
+}
+
+.gd-hero p {
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.7;
+    font-size: 1.2rem;
+}
+
+/* SHOWCASE */
+.gd-showcase {
+    padding: 100px 5%;
+}
+
+.gd-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+}
+
+.gd-item {
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.gd-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: 0.4s ease;
+}
+
+.gd-item:hover img {
+    transform: scale(1.05);
+}
+
+/* SERVICES */
+.gd-services {
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.gd-services h2 {
+    font-size: 3rem;
+    margin-bottom: 60px;
+}
+
+.gd-service-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+}
+
+.gd-service-grid div {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+/* PROCESS */
+.gd-process {
+    background: #0a0a0a;
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.gd-steps {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+/* CTA */
+.gd-cta {
+    padding: 140px 5%;
+    text-align: center;
+}
+
+.gd-cta h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .gd-grid,
+    .gd-service-grid,
+    .gd-steps {
+        grid-template-columns: 1fr;
+    }
+}

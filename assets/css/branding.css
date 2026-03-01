@@ -1,0 +1,120 @@
+/* HERO */
+.brand-hero {
+    padding: 180px 5% 120px;
+    text-align: center;
+}
+
+.brand-label {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    opacity: 0.6;
+}
+
+.brand-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin: 30px 0;
+}
+
+.brand-hero p {
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.7;
+    font-size: 1.2rem;
+}
+
+/* PHILOSOPHY */
+.brand-philosophy {
+    background: #fff;
+    color: #000;
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.brand-philosophy h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.brand-philosophy p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+
+/* SERVICES */
+.brand-services {
+    padding: 120px 5%;
+}
+
+.brand-services h2 {
+    font-size: 3rem;
+    margin-bottom: 60px;
+}
+
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 40px;
+}
+
+.brand-card {
+    background: var(--surface);
+    padding: 50px;
+    border-radius: 25px;
+    border: 1px solid var(--border);
+}
+
+/* FRAMEWORK */
+.brand-framework {
+    background: #0a0a0a;
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.framework-steps {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.framework-steps div {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+/* DELIVERABLES */
+.brand-deliverables {
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.deliver-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+/* CTA */
+.brand-cta {
+    padding: 140px 5%;
+    text-align: center;
+}
+
+.brand-cta h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .brand-grid,
+    .framework-steps,
+    .deliver-grid {
+        grid-template-columns: 1fr;
+    }
+}
