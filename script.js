@@ -101,12 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: "power4.out"
     });
 
+    // gsap.to(".hero-content", {
+    //     scrollTrigger: {
+    //         trigger: ".hero",
+    //         start: "top top",
+    //         end: "bottom top",
+    //         scrub: true
+    //     },
+    //     y: 100,
+    //     opacity: 0,
+    //     ease: "none"
+    // });
     gsap.to(".hero-content", {
         scrollTrigger: {
             trigger: ".hero",
             start: "top top",
             end: "bottom top",
-            scrub: true
+            scrub: window.innerWidth > 1024, // disable scrub on mobile
         },
         y: 100,
         opacity: 0,
@@ -283,7 +294,10 @@ const initPhysicsLab = () => {
 };
 
 // Initialize the lab
-initPhysicsLab();
+// initPhysicsLab();
+document.addEventListener('DOMContentLoaded', () => {
+    initPhysicsLab();
+});
 
 // 8. TESTIMONIAL SLIDER LOGIC (With Drag & Swipe)
 const initTestimonials = () => {
@@ -612,4 +626,8 @@ ${message}
         });
     }
 
+});
+
+window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
 });
