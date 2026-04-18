@@ -740,6 +740,20 @@ fetch('/header.html')
         }, 200);
     });
 
+fetch('/footer.html')
+    .then(res => res.text())
+    .then(data => {
+        const placeholder = document.getElementById('footer-placeholder');
+        if (placeholder) {
+            placeholder.innerHTML = data;
+        }
+        // In case some pages use .main-footer as a class directly
+        const mainFooter = document.querySelector('.main-footer');
+        if (mainFooter && !mainFooter.innerHTML.trim()) {
+            mainFooter.innerHTML = data;
+        }
+    });
+
 function initNavbar() {
     const hamburger = document.querySelector('.hamburger');
     const drawer = document.querySelector('.mobile-drawer');

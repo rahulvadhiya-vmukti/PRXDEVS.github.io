@@ -223,6 +223,31 @@
     border-radius: 20px;
 }
 
+/* CONNECT MINI */
+.ws-connect-mini {
+    text-align: center;
+    padding: 0 0 80px;
+    opacity: 0.8;
+}
+
+.ws-connect-mini p {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.ws-connect-mini a {
+    color: #fff;
+    font-weight: 700;
+    margin-left: 10px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: 0.3s;
+}
+
+.ws-connect-mini a:hover {
+    opacity: 0.6;
+}
+
 /* CTA */
 .ws-cta {
     padding: 140px 5%;

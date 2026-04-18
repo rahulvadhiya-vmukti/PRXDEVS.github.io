@@ -116,6 +116,31 @@
     margin-top: 60px;
 }
 
+/* CONNECT MINI */
+.ai-connect-mini {
+    text-align: center;
+    padding: 0 0 80px;
+    opacity: 0.8;
+}
+
+.ai-connect-mini p {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.ai-connect-mini a {
+    color: #fff;
+    font-weight: 700;
+    margin-left: 10px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: 0.3s;
+}
+
+.ai-connect-mini a:hover {
+    opacity: 0.6;
+}
+
 /* CTA */
 .ai-cta {
     padding: 140px 5%;

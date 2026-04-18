@@ -31,7 +31,7 @@
 
 .gd-grid {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
@@ -64,7 +64,7 @@
 
 .gd-service-grid {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
@@ -83,24 +83,39 @@
 
 .gd-steps {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-top: 60px;
 }
 
-/* CTA */
-.gd-cta {
-    padding: 140px 5%;
+/* CONNECT MINI */
+.gd-connect-mini {
     text-align: center;
+    padding: 60px 0 20px;
+    opacity: 0.8;
 }
 
-.gd-cta h2 {
-    font-size: 3rem;
-    margin-bottom: 40px;
+.gd-connect-mini p {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.gd-connect-mini a {
+    color: #fff;
+    font-weight: 700;
+    margin-left: 10px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: 0.3s;
+}
+
+.gd-connect-mini a:hover {
+    opacity: 0.6;
 }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
+
     .gd-grid,
     .gd-service-grid,
     .gd-steps {

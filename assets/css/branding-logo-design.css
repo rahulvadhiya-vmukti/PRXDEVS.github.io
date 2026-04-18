@@ -99,6 +99,31 @@
     margin-top: 60px;
 }
 
+/* CONNECT MINI */
+.brand-connect-mini {
+    text-align: center;
+    padding: 0 0 80px;
+    opacity: 0.8;
+}
+
+.brand-connect-mini p {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.brand-connect-mini a {
+    color: #fff;
+    font-weight: 700;
+    margin-left: 10px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: 0.3s;
+}
+
+.brand-connect-mini a:hover {
+    opacity: 0.6;
+}
+
 /* CTA */
 .brand-cta {
     padding: 140px 5%;
