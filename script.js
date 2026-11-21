@@ -794,18 +794,20 @@ function initNavbar() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const baseURL = "https://mail.prxdevs.com:2011";
+    const WEB3FORMS_ACCESS_KEY = "2d3dbf16-9006-4e72-86b1-d5977ca9ce9d";
 
     // Shared function to send form
     function sendForm(name, email, message, formElement, buttonElement, originalText) {
 
-        fetch(`${baseURL}/submitForm`, {
+        fetch("https://api.web3forms.com/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-site-key": "prxdev_secure_2026"
+                "Accept": "application/json"
             },
             body: JSON.stringify({
+                access_key: WEB3FORMS_ACCESS_KEY,
+                subject: "New Inquiry from PRXDEVS Website",
                 name: name,
                 email: email,
                 message: message
@@ -813,7 +815,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.message === "Email sent successfully") {
+                if (data.success) {
                     alert("Inquiry sent successfully!");
                     formElement.reset();
                 } else {
@@ -867,35 +869,110 @@ ${message}
 
     /* ------------ FOOTER FORM ------------ */
 
-    const footerForm = document.getElementById("footerContactForm");
+    // The footer is injected later via fetch('/footer.html'), so the form doesn't
+    // exist yet at DOMContentLoaded. Listen on document instead — submit events
+    // bubble, so this catches the footer form whenever it gets added.
+    document.addEventListener("submit", function (event) {
+        const footerForm = event.target;
+        if (footerForm.id !== "footerContactForm") return;
 
-    if (footerForm) {
+        event.preventDefault();
 
-        footerForm.addEventListener("submit", function (event) {
-            event.preventDefault();
+        const submitBtn = footerForm.querySelector(".cta-btn");
+        const originalText = submitBtn.innerText;
 
-            const submitBtn = footerForm.querySelector(".cta-btn");
-            const originalText = submitBtn.innerText;
+        submitBtn.innerText = "Sending...";
+        submitBtn.disabled = true;
 
-            submitBtn.innerText = "Sending...";
-            submitBtn.disabled = true;
+        const name = document.getElementById("footerName").value;
+        const email = document.getElementById("footerEmail").value;
+        const service = document.getElementById("footerService").value;
+        const message = document.getElementById("footerMessage").value;
 
-            const name = document.getElementById("footerName").value;
-            const email = document.getElementById("footerEmail").value;
-            const service = document.getElementById("footerService").value;
-            const message = document.getElementById("footerMessage").value;
-
-            const finalMessage = `
+        const finalMessage = `
 Service: ${service}
 
 Project Details:
 ${message}
             `;
 
-            sendForm(name, email, finalMessage, footerForm, submitBtn, originalText);
-        });
+        sendForm(name, email, finalMessage, footerForm, submitBtn, originalText);
+    });
+
+});
+
+/* ================= HERO MARK — CURSOR-REACTIVE GLOW ================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const heroVisual = document.querySelector(".hero-visual");
+    const heroGlow = document.getElementById("heroGlow");
+    const heroMark = document.getElementById("heroMark");
+    const heroMetal = document.getElementById("heroMetal");
+    const heroSheen = document.getElementById("heroSheen");
+
+    if (!heroVisual || !heroGlow || !heroMark || !heroMetal || !heroSheen) return;
+    if (window.innerWidth <= 1024) return; // matches the site's desktop-only animation policy
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const maxOffset = 50;        // how far the light drifts toward the cursor
+    const influenceRadius = 520; // cursor distance at which the effect fades out
+    const baseOpacity = 0.4;
+    const peakOpacity = 1;
+    const ORBIT_RADIUS = 60;             // how wide the light circles behind the mark
+    const ORBIT_SPEED = (Math.PI * 2) / 16; // one clockwise revolution every 16s
+
+    let targetX = 0, targetY = 0, targetStrength = 0;
+    let currentX = 0, currentY = 0, currentStrength = 0;
+
+    function onPointerMove(e) {
+        const rect = heroVisual.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        const dist = Math.hypot(dx, dy);
+
+        targetStrength = 1 - Math.min(dist, influenceRadius) / influenceRadius;
+
+        const angle = Math.atan2(dy, dx);
+        targetX = Math.cos(angle) * maxOffset * targetStrength;
+        targetY = Math.sin(angle) * maxOffset * targetStrength;
     }
 
+    window.addEventListener("mousemove", onPointerMove, { passive: true });
+
+    function animate(now) {
+        // the light source orbits slowly clockwise behind the mark, so the rim
+        // highlight keeps travelling around the shape even when the cursor is still
+        const t = now / 1000;
+        const orbitAngle = t * ORBIT_SPEED;
+        const idleX = Math.cos(orbitAngle) * ORBIT_RADIUS;
+        const idleY = Math.sin(orbitAngle) * ORBIT_RADIUS;
+        const pulse = 1 + Math.sin(t * 0.7) * 0.05;
+
+        currentX += (targetX - currentX) * 0.06;
+        currentY += (targetY - currentY) * 0.06;
+        currentStrength += (targetStrength - currentStrength) * 0.06;
+
+        const x = currentX + idleX;
+        const y = currentY + idleY;
+
+        heroGlow.style.transform =
+            `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${pulse})`;
+        heroGlow.style.opacity = baseOpacity + (peakOpacity - baseOpacity) * currentStrength;
+
+        // the metal sheen spins with the light, so the highlight travels around the rim
+        heroSheen.style.transform =
+            `translate(-50%, -50%) rotate(${orbitAngle * (180 / Math.PI)}deg)`;
+
+        // the mark and its metal rim counter-drift a touch, which sells the depth
+        const markShift = `translate(calc(-50% + ${x * -0.06}px), calc(-50% + ${y * -0.06}px))`;
+        heroMark.style.transform = markShift;
+        heroMetal.style.transform = markShift;
+
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
 });
 
 // window.addEventListener("load", () => {
