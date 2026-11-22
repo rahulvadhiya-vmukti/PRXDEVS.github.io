@@ -1,151 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | PRXDEVS</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/assets/images/prx.PNG">
-    <link rel="apple-touch-icon" href="/assets/images/prx.PNG">
-
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/assets/css/contact.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact PRXDEVS | Start a Website, Logo or Software Project</title>
+<meta name="description" content="Tell PRXDEVS about your project. Website development, logo design, software, SEO and ads. We reply within 24 hours. Ahmedabad, India.">
+<meta name="author" content="PRXDEVS">
+<link rel="canonical" href="https://www.prxdevs.com/contact/">
+<link rel="icon" type="image/png" href="/assets/images/prx.PNG">
+<link rel="apple-touch-icon" href="/assets/images/prx.PNG">
+<meta property="og:title" content="Contact PRXDEVS | Start a Website, Logo or Software Project">
+<meta property="og:description" content="Tell PRXDEVS about your project. Website development, logo design, software, SEO and ads. We reply within 24 hours. Ahmedabad, India.">
+<meta property="og:image" content="https://www.prxdevs.com/assets/images/prx.PNG">
+<meta property="og:url" content="https://www.prxdevs.com/contact/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact PRXDEVS | Start a Website, Logo or Software Project">
+<meta name="twitter:description" content="Tell PRXDEVS about your project. Website development, logo design, software, SEO and ads. We reply within 24 hours. Ahmedabad, India.">
+<meta name="twitter:image" content="https://www.prxdevs.com/assets/images/prx.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-    <div id="cursor"></div>
+<header class="nav" id="nav">
+  <a class="brand" href="/" aria-label="PRXDEVS home">
+    <span class="brand__mark"><img src="/assets/images/prx.PNG" alt=""></span>
+    <span class="brand__word">PRXDEVS</span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="/work/">Work</a>
+    <div class="dd">
+      <button class="dd__btn" type="button" aria-expanded="false" aria-controls="ddServices">Services</button>
+      <div class="dd__panel" id="ddServices"><a href="/services/web-development/" class="is-main"><b>Website development</b><span>Websites, online stores &amp; software</span></a><a href="/services/branding-logo-design/"><b>Logo &amp; branding</b><span>Logos and brand identities</span></a><a href="/services/seo-ads/"><b>SEO &amp; ads</b><span>SEO, Google Ads and Meta Ads</span></a><a href="/services/graphic-design/"><b>Graphic design</b><span>Social, ads, print and packaging</span></a><a href="/services/ai-solutions/"><b>AI solutions</b><span>Chatbots and automation</span></a></div>
+    </div>
+    <a href="/about/">About</a>
+    <a href="/contact/" aria-current="page">Contact</a>
+  </nav>
+  <div class="nav__right">
+    <span class="clock" aria-label="Local time in Ahmedabad"><span class="clock__dot"></span>Ahmedabad <b id="clock">--:--</b> IST</span>
+    <a class="btn btn--ink btn--sm" href="/contact/">Start a project</a>
+    <button class="nav__menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <a href="/">Home</a><a href="/work/">Work</a>
+    <p class="mm__label">Services</p><a class="mm__sub" href="/services/web-development/">Website development</a><a class="mm__sub" href="/services/branding-logo-design/">Logo &amp; branding</a><a class="mm__sub" href="/services/seo-ads/">SEO &amp; ads</a><a class="mm__sub" href="/services/graphic-design/">Graphic design</a><a class="mm__sub" href="/services/ai-solutions/">AI solutions</a>
+    <a href="/about/">About</a><a href="/contact/">Contact</a>
+    <a class="btn btn--ink" href="/contact/">Start a project</a>
+  </div>
+</header>
 
-    <div id="header-placeholder"></div>
-    <main>
-
-        <!-- HERO -->
-        <section class="contact-hero">
-            <span class="contact-label">⚫ START A PROJECT</span>
-            <h1>
-                Let’s Build <br>
-                Something Exceptional.
-            </h1>
-            <p>
-                Tell us about your idea, your goals, and your vision.
-                We’ll respond with clarity and direction.
-            </p>
-        </section>
-
-        <!-- FORM SECTION -->
-        <section class="contact-section">
-
-            <div class="contact-container">
-
-                <!-- <form class="contact-form"> -->
-                <form id="contactForm" class="contact-form">
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" id="name" placeholder="John Doe" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" id="email" placeholder="john@example.com" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Company / Brand</label>
-                        <input type="text" id="company" placeholder="Company Name">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Service Required</label>
-                        <select id="service" required>
-                            <option value="">Select Service</option>
-                            <option>Web & Software Development</option>
-                            <option>AI Solutions</option>
-                            <option>Branding & Identity</option>
-                            <option>Graphic Design</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <!-- <div class="form-group">
-                            <label>Estimated Budget</label>
-                            <select required>
-                                <option value="">Select Budget Range</option>
-                                <option>$1,000 - $5,000</option>
-                                <option>$5,000 - $15,000</option>
-                                <option>$15,000+</option>
-                            </select>
-                        </div> -->
-
-                    <div class="form-group">
-                        <label>Project Timeline</label>
-                        <select id="timeline">
-                            <option>Flexible</option>
-                            <option>2-3 Days</option>
-                            <option>1-2 weeks</option>
-                            <option>1-2 Months</option>
-                            <option>3+ Months</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group full">
-                    <label>Project Details</label>
-                    <textarea id="message" rows="6" placeholder="Describe your project..."></textarea>
-                </div>
-
-                <button type="submit" class="cta-btn">Submit Inquiry</button>
-
-                </form>
-
-                <div class="contact-info">
-                    <h3>Direct Contact</h3>
-                    <p>Email: hello@PRXDEVS.com</p>
-                    <p>Location: India</p>
-                    <p>Response Time: Within 24 hours</p>
-                </div>
-
+<main id="main">
+<section class="phero phero--solo" data-section="hero">
+  <div class="phero__copy">
+    <p class="crumbs" data-reveal><a href="/">Home</a> / Contact</p>
+    <h1 data-reveal style="--d:.06s">Tell us what <span class="hl">you’re building.</span></h1>
+    <p class="phero__lede" data-reveal style="--d:.12s">A few lines is enough. We’ll reply <b>within 24 hours</b> with questions, ideas and a clear next step.</p>
+  </div>
+</section>
+<section class="section start" data-section="start" style="padding-top: 48px">
+  <div class="start__grid">
+      <form class="win win--form" data-brief novalidate>
+        <div class="win__bar"><span class="win__dots"><i></i><i></i><i></i></span><span class="win__name">new-project.brief</span><span class="pill">Draft</span></div>
+        <div class="form">
+          <div class="form__row">
+            <label class="field"><span>Your name</span><input name="name" required autocomplete="name" placeholder="Jane Doe"></label>
+            <label class="field"><span>Email</span><input type="email" name="email" required autocomplete="email" placeholder="jane@company.com"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Company / brand</span><input name="company" autocomplete="organization" placeholder="Your business"></label>
+            <label class="field"><span>Phone (optional)</span><input type="tel" name="phone" autocomplete="tel" placeholder="+91"></label>
+          </div>
+          <fieldset class="field">
+            <legend>I need</legend>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="need" value="Website" checked><span>Website</span></label>
+              <label class="choice"><input type="checkbox" name="need" value="Logo &amp; branding"><span>Logo &amp; branding</span></label>
+              <label class="choice"><input type="checkbox" name="need" value="Software"><span>Software</span></label>
+              <label class="choice"><input type="checkbox" name="need" value="SEO &amp; ads"><span>SEO &amp; ads</span></label>
+              <label class="choice"><input type="checkbox" name="need" value="Graphic design"><span>Graphic design</span></label>
+              <label class="choice"><input type="checkbox" name="need" value="AI"><span>AI</span></label>
+              <label class="choice"><input type="checkbox" name="need" value="Not sure yet"><span>Not sure yet</span></label>
             </div>
+          </fieldset>
+          <label class="field"><span>Timeline</span>
+            <select name="timeline"><option>Flexible</option><option>2–3 days</option><option>1–2 weeks</option><option>1–2 months</option><option>3+ months</option></select>
+          </label>
+          <label class="field"><span>About the project</span><textarea name="message" rows="4" placeholder="What are you building, and by when?"></textarea></label>
+          <div class="form__foot">
+            <button class="btn btn--ink" type="submit">Send brief <span class="btn__arrow" aria-hidden="true">→</span></button>
+            <p class="form__note" role="status" aria-live="polite">We reply within 24 hours.</p>
+          </div>
+        </div>
+      </form>
+      <aside class="bizcard" aria-label="Contact details">
+        <div class="bizcard__top"><span class="brand__mark brand__mark--lg"><img src="/assets/images/prx.PNG" alt=""></span><span class="bizcard__word">PRXDEVS</span></div>
+        <a class="bizcard__mail" href="mailto:prxdevs@gmail.com">prxdevs@gmail.com</a>
+        <a class="bizcard__phone" href="tel:+916353111919">+91 63531 11919</a>
+        <dl class="bizcard__list">
+          <div><dt>Studio</dt><dd>Ahmedabad, India</dd></div>
+          <div><dt>Clients</dt><dd>India &amp; worldwide</dd></div>
+          <div><dt>Reply</dt><dd>Within 24 hours</dd></div>
+        </dl>
+        <div class="bizcard__social">
+          <a href="https://www.linkedin.com/in/prx-devs-a39a8b248/">LinkedIn</a>
+          <a href="https://www.instagram.com/prx.devs/">Instagram</a>
+          <a href="https://www.behance.net/prxdevs">Behance</a>
+          <a href="https://in.pinterest.com/prxdevs/">Pinterest</a>
+        </div>
+      </aside>
+  </div>
+</section>
+</main>
 
-        </section>
+<footer class="footer" data-section="footer">
+  <div class="footer__cta">
+    <p class="footer__big">Let’s build what’s next.</p>
+    <a class="btn btn--amber" href="/contact/">Start a project <span class="btn__arrow" aria-hidden="true">→</span></a>
+  </div>
+  <div class="footer__cols">
+    <div><h4>Services</h4><ul><li><a href="/services/web-development/">Website development</a></li><li><a href="/services/branding-logo-design/">Logo &amp; branding</a></li><li><a href="/services/seo-ads/">SEO, Google &amp; Meta Ads</a></li><li><a href="/services/graphic-design/">Graphic design</a></li><li><a href="/services/ai-solutions/">AI solutions</a></li></ul></div>
+    <div><h4>Studio</h4><ul><li><a href="/work/">Work</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+    <div><h4>Say hi</h4><ul><li><a href="mailto:prxdevs@gmail.com">prxdevs@gmail.com</a></li><li><a href="tel:+916353111919">+91 63531 11919</a></li><li><a href="https://www.linkedin.com/in/prx-devs-a39a8b248/">LinkedIn</a></li><li><a href="https://www.instagram.com/prx.devs/">Instagram</a></li><li><a href="https://www.behance.net/prxdevs">Behance</a></li><li><a href="https://in.pinterest.com/prxdevs/">Pinterest</a></li></ul></div>
+  </div>
+  <p class="footer__word" aria-hidden="true">PRXDEVS</p>
+  <div class="footer__bottom"><span>© 2026 PRXDEVS · Ahmedabad, India</span><span>Designed &amp; built in-house, 100% custom</span></div>
+</footer>
 
-        <footer class="main-footer2 reveal">
-            <div class="footer-container">
-                <!-- <div class="footer-cta">
-                    <span>READY TO START?</span>
-                    <h2 class="huge-text">LET'S BUILD <br> SOMETHING <span class="outline-text">GREAT.</span></h2>
-                    <a href="mailto:hello@PRXDEVS.com" class="footer-email">hello@PRXDEVS.com</a>
-                </div> -->
-
-                <div class="footer-bottom2">
-                    <div class="footer-logo">
-                        <h3>PRXDEVS</h3>
-                        <p>© 2026 Creative Design & Tech Studio. <br> Based in Ahmedabad.</p>
-                    </div>
-                    <div class="footer-socials">
-                        <a href="#">LinkedIn</a>
-                        <a href="#">Instagram</a>
-                        <a href="#">Dribbble</a>
-                        <a href="#">Behance</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="/script.js"></script>
-
+<script src="/script.js"></script>
 </body>
-
 </html>

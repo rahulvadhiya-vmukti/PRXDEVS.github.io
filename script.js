@@ -1,506 +1,223 @@
-// Register GSAP Plugins
-gsap.registerPlugin(ScrollTrigger);
+/* PRXDEVS — site script
+   ?shot            → still mode: everything visible, no motion (used for screenshots)
+   ?shot=<section>  → still mode showing only the nav + that [data-section]        */
+(() => {
+  const root = document.documentElement;
+  root.classList.remove('no-js');
+  root.classList.add('js');
 
-window.addEventListener("load", () => {
+  const params = new URLSearchParams(location.search);
+  const shot = params.get('shot');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const still = shot !== null || reduce;
 
-    const isMobile = window.innerWidth <= 1024;
-
-    // 🚫 If Mobile → NO ANIMATIONS
-    if (isMobile) {
-        console.log("Mobile detected — Animations disabled.");
-
-        // Make sure everything is visible
-        document.querySelectorAll('.hero-content, .reveal, .about-content > div')
-            .forEach(el => {
-                el.style.opacity = "1";
-                el.style.transform = "none";
-            });
-
-        return; // STOP HERE
+  if (shot !== null) {
+    root.classList.add('shot');
+    if (shot && shot !== 'all') {
+      root.classList.add('shot-one');
+      document.querySelectorAll('[data-section]').forEach((s) => s.classList.toggle('is-shot', s.dataset.section === shot));
     }
+  }
 
-    // ✅ DESKTOP ONLY ANIMATIONS BELOW
-
-    // HERO REVEAL
-    gsap.fromTo(".hero-content",
-        { opacity: 0, y: 40 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: "power4.out"
-        }
-    );
-
-    // HERO SCRUB
-    gsap.to(".hero-content", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-        },
-        y: 100,
-        ease: "none"
-    });
-
-    // ABOUT SECTION
-    gsap.to(".about-brief", {
-        scrollTrigger: {
-            trigger: ".about-brief",
-            start: "top bottom",
-            end: "top center",
-            scrub: 1
-        },
-        marginLeft: "5%",
-        marginRight: "5%",
-        marginTop: "5%",
-        marginBottom: "5%",
-        borderRadius: "60px",
-        ease: "power1.inOut"
-    });
-
-    // REVEALS
-    document.querySelectorAll('.reveal').forEach((el) => {
-        gsap.fromTo(el,
-            { opacity: 0, y: 40 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                }
-            }
-        );
-    });
-
-    // ABOUT STAGGER
-    gsap.from(".about-content > div", {
-        scrollTrigger: {
-            trigger: ".about-content",
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-        },
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: "power3.out"
-    });
-
-    ScrollTrigger.refresh();
-});
-
-// 7. CREATIVE LAB PHYSICS ENGINE
-let physicsInitialized = false;
-
-const initPhysicsLab = () => {
-
-    // Disable physics for screens below 1000px
-    if (window.innerWidth < 1000) return;
-
-    const container = document.querySelector('#physics-container');
-    if (!container || physicsInitialized) return;
-
-    physicsInitialized = true; // Prevent double init
-
-    const { Engine, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
-
-    const engine = Engine.create();
-    const world = engine.world;
-
-    engine.gravity.y = 0;
-
-    const cardWidth = 230;
-    const cardHeight = 170;
-
-    const wallThickness = 50;
-    const wallOptions = { isStatic: true, render: { visible: false } };
-
-    const ground = Bodies.rectangle(container.offsetWidth / 2, container.offsetHeight + wallThickness / 2, container.offsetWidth, wallThickness, wallOptions);
-    const ceiling = Bodies.rectangle(container.offsetWidth / 2, -wallThickness / 2, container.offsetWidth, wallThickness, wallOptions);
-    const leftWall = Bodies.rectangle(-wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions);
-    const rightWall = Bodies.rectangle(container.offsetWidth + wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions);
-
-    const cardImages = [
-        'https://picsum.photos/400/300?random=1',
-        'https://picsum.photos/400/300?random=2',
-        'https://picsum.photos/400/300?random=3',
-        'https://picsum.photos/400/300?random=4',
-        'https://picsum.photos/400/300?random=5',
-        'https://picsum.photos/400/300?random=6'
-    ];
-
-    const cards = cardImages.map((imgSrc) => {
-
-        const x = Math.random() * (container.offsetWidth - cardWidth) + cardWidth / 2;
-        const y = Math.random() * (container.offsetHeight * 0.5) + 50;
-        const initialRotation = (Math.random() - 0.5) * 1;
-
-        const body = Bodies.rectangle(x, y, cardWidth, cardHeight, {
-            restitution: 0.6,
-            friction: 0.1,
-            angle: initialRotation,
-            chamfer: { radius: 20 },
-            render: { visible: false }
-        });
-
-        const element = document.createElement('div');
-        element.className = 'lab-card';
-        element.style.width = `${cardWidth}px`;
-        element.style.height = `${cardHeight}px`;
-        element.innerHTML = `<img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover;">`;
-
-        container.appendChild(element);
-
-        return { body, element };
-    });
-
-    Composite.add(world, [ground, ceiling, leftWall, rightWall, ...cards.map(c => c.body)]);
-
-    const mouse = Mouse.create(container);
-    const mouseConstraint = MouseConstraint.create(engine, {
-        mouse: mouse,
-        constraint: { stiffness: 0.2, render: { visible: false } }
-    });
-
-    // Allow scrolling
-    mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
-    mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
-
-    Composite.add(world, mouseConstraint);
-
-    Events.on(engine, 'afterUpdate', () => {
-        cards.forEach(card => {
-            const { position, angle } = card.body;
-            card.element.style.transform =
-                `translate3d(${position.x - cardWidth / 2}px, ${position.y - cardHeight / 2}px, 0) rotate(${angle}rad)`;
-        });
-    });
-
-    const runner = Runner.create();
-
-    // Start engine only when visible
-    ScrollTrigger.create({
-        trigger: ".creative-lab",
-        start: "top 70%",
-        onEnter: () => {
-            Runner.run(runner, engine);
-            engine.gravity.y = 1;
-        },
-        onLeave: () => {
-            Runner.stop(runner);
-        },
-        onLeaveBack: () => {
-            Runner.stop(runner);
-        }
-    });
-};
-
-// Initialize the lab
-document.addEventListener('DOMContentLoaded', () => {
-    initPhysicsLab();
-});
-
-// 8. TESTIMONIAL SLIDER LOGIC (With Drag & Swipe)
-const initTestimonials = () => {
-    const container = document.querySelector('.testimonial-container');
-    const nextBtn = document.querySelector('.next-btn');
-    const prevBtn = document.querySelector('.prev-btn');
-    const progressFill = document.querySelector('.progress-bar-fill');
-
-    if (!container) return;
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    // A. Drag and Swipe Logic
-    container.addEventListener('mousedown', (e) => {
-        isDown = true;
-        container.classList.add('active');
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-    });
-
-    container.addEventListener('mouseleave', () => {
-        isDown = false;
-    });
-
-    container.addEventListener('mouseup', () => {
-        isDown = false;
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2; // Scroll speed multiplier
-        container.scrollLeft = scrollLeft - walk;
-        updateProgress();
-    });
-
-    // B. Button Logic
-    const scrollAmount = 480;
-    nextBtn.addEventListener('click', () => {
-        container.scrollTo({
-            left: container.scrollLeft + scrollAmount,
-            behavior: 'smooth'
-        });
-        updateProgress();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        container.scrollTo({
-            left: container.scrollLeft - scrollAmount,
-            behavior: 'smooth'
-        });
-        updateProgress();
-    });
-
-    // C. Progress Bar Update
-    const updateProgress = () => {
-        const maxScroll = container.scrollWidth - container.clientWidth;
-        const percentage = (container.scrollLeft / maxScroll) * 100;
-        if (progressFill) progressFill.style.width = `${Math.max(percentage, 10)}%`;
+  /* ---------- Ahmedabad clock ---------- */
+  const clock = document.getElementById('clock');
+  if (clock) {
+    const tick = () => {
+      clock.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' }).format(new Date());
     };
+    tick();
+    setInterval(tick, 20000);
+  }
 
-    container.addEventListener('scroll', updateProgress);
-};
+  /* ---------- Nav: mobile menu + services dropdown ---------- */
+  const nav = document.getElementById('nav');
+  if (nav) {
+    const menuBtn = nav.querySelector('.nav__menu');
+    const menu = document.getElementById('mobileMenu');
+    const setMenu = (open) => {
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? 'Close' : 'Menu';
+      menu.hidden = !open;
+    };
+    menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
-initTestimonials();
+    const dd = nav.querySelector('.dd');
+    const ddBtn = dd && dd.querySelector('.dd__btn');
+    const setDd = (open) => { dd.classList.toggle('is-open', open); ddBtn.setAttribute('aria-expanded', String(open)); };
+    if (dd) {
+      ddBtn.addEventListener('click', () => setDd(!dd.classList.contains('is-open')));
+      document.addEventListener('click', (e) => { if (!dd.contains(e.target)) setDd(false); });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (!menu.hidden) setMenu(false);
+      if (dd && dd.classList.contains('is-open')) { setDd(false); ddBtn.focus(); }
+    });
+    addEventListener('scroll', () => nav.classList.toggle('is-stuck', scrollY > 8), { passive: true });
+  }
 
-// 9. FOOTER REVEAL ANIMATION
-gsap.from(".footer-cta h2", {
-    scrollTrigger: {
-        trigger: ".main-footer",
-        start: "top 80%",
-    },
-    y: 100,
-    opacity: 0,
-    duration: 1.5,
-    ease: "power4.out"
-});
+  /* ---------- Reveal on scroll ---------- */
+  const reveals = document.querySelectorAll('[data-reveal]');
+  if (still || !('IntersectionObserver' in window)) {
+    reveals.forEach((el) => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { rootMargin: '0px 0px -6% 0px' });
+    reveals.forEach((el) => io.observe(el));
+  }
 
-// 10. HERO INTERACTION: WORD ROTATOR
-const rotateWords = () => {
-
-    const target = document.querySelector('.txt-rotate');
-    if (!target) return;
-
-    const words = ["WEBSITES", "Softwares", "Graphic Designs", "Logo Designs"];
+  /* ---------- Code that types itself ---------- */
+  document.querySelectorAll('.code').forEach((code) => {
+    const lines = Array.from(code.querySelectorAll('.ln'));
+    if (!lines.length) return;
+    if (still) {
+      lines.forEach((l) => l.classList.add('on'));
+      lines[lines.length - 1].classList.add('cur');
+      return;
+    }
     let i = 0;
+    const step = () => {
+      lines.forEach((l) => l.classList.remove('cur'));
+      if (i < lines.length) {
+        lines[i].classList.add('on', 'cur');
+        i += 1;
+        setTimeout(step, 520);
+      } else {
+        setTimeout(() => { lines.forEach((l) => l.classList.remove('on', 'cur')); i = 0; step(); }, 3600);
+      }
+    };
+    step();
+  });
 
+  /* ---------- Browser windows that cycle through several sites ---------- */
+  document.querySelectorAll('.reel').forEach((reel) => {
+    const imgs = Array.from(reel.querySelectorAll('img'));
+    const win = reel.closest('.win');
+    const tabs = win ? Array.from(win.querySelectorAll('.tab')) : [];
+    if (imgs.length < 2 || still) return;
+    let cur = 0;
     setInterval(() => {
-        i = (i + 1) % words.length;
-        target.textContent = words[i];
-    }, 2500);
-};
+      cur = (cur + 1) % imgs.length;
+      imgs.forEach((img, i) => img.classList.toggle('is-on', i === cur));
+      tabs.forEach((t, i) => t.classList.toggle('is-on', i === cur));
+    }, 3200);
+  });
 
-// New Function for Scroll Arrow
-const scrollToAbout = () => {
-    const nextSection = document.querySelector('.about-brief');
-    if (nextSection) {
-        nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-};
-
-// 11. HERO INTERACTION: ORB FOLLOW
-const initHeroOrb = () => {
-
-    if (window.innerWidth <= 1024) return;
-
-    const orb = document.querySelector('.hero-orb');
-    if (!orb) return;
-
-    window.addEventListener('mousemove', (e) => {
-        gsap.to(orb, {
-            x: e.clientX - window.innerWidth / 2,
-            y: e.clientY - window.innerHeight / 2,
-            duration: 2,
-            ease: "power2.out"
+  /* ---------- Draggable desk windows ---------- */
+  if (matchMedia('(pointer: fine)').matches && !still) {
+    let z = 20;
+    document.querySelectorAll('[data-desk]').forEach((desk) => {
+      desk.querySelectorAll('[data-win]').forEach((win) => {
+        const handle = win.querySelector('[data-drag]') || win;
+        win.addEventListener('pointerdown', () => { z += 1; win.style.zIndex = z; });
+        handle.addEventListener('pointerdown', (e) => {
+          if (e.button !== 0) return;
+          const d = desk.getBoundingClientRect();
+          const w = win.getBoundingClientRect();
+          const ox = e.clientX - w.left;
+          const oy = e.clientY - w.top;
+          win.classList.add('is-dragging');
+          handle.setPointerCapture(e.pointerId);
+          const move = (ev) => {
+            const x = Math.min(Math.max(ev.clientX - d.left - ox, -w.width * 0.4), d.width - w.width * 0.6);
+            const y = Math.min(Math.max(ev.clientY - d.top - oy, -20), d.height - 40);
+            win.style.left = `${x}px`;
+            win.style.top = `${y}px`;
+          };
+          const up = () => {
+            win.classList.remove('is-dragging');
+            handle.removeEventListener('pointermove', move);
+            handle.removeEventListener('pointerup', up);
+          };
+          handle.addEventListener('pointermove', move);
+          handle.addEventListener('pointerup', up);
         });
+      });
     });
-};
+  }
 
-// Initialize hero interactions
-rotateWords();
-initHeroOrb();
+  /* ---------- Filters (work page) ---------- */
+  document.querySelectorAll('[data-filters]').forEach((group) => {
+    const scope = document.querySelector(group.dataset.filters);
+    const buttons = Array.from(group.querySelectorAll('.filter'));
+    buttons.forEach((btn) => btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      scope.querySelectorAll('[data-cat]').forEach((el) => {
+        el.classList.toggle('is-hidden', f !== 'all' && !el.dataset.cat.split(' ').includes(f));
+      });
+    }));
+  });
 
-// Load Header & Footer
-fetch('/header.html')
-    .then(res => res.text())
-    .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-        initNavbar();
+  /* ---------- Project brief forms → Web3Forms ---------- */
+  const WEB3FORMS_ACCESS_KEY = '2d3dbf16-9006-4e72-86b1-d5977ca9ce9d';
 
-        // Delay refresh slightly to allow layout paint
-        setTimeout(() => {
-            ScrollTrigger.refresh(true);
-        }, 200);
+  // Pre-tick a service when arriving from a service page (?service=Website)
+  const wanted = params.get('service');
+  if (wanted) {
+    document.querySelectorAll('form[data-brief] input[name="need"]').forEach((box) => {
+      box.checked = box.value.toLowerCase() === wanted.toLowerCase();
     });
+  }
 
-fetch('/footer.html')
-    .then(res => res.text())
-    .then(data => {
-        const placeholder = document.getElementById('footer-placeholder');
-        if (placeholder) {
-            placeholder.innerHTML = data;
-        }
-        // In case some pages use .main-footer as a class directly
-        const mainFooter = document.querySelector('.main-footer');
-        if (mainFooter && !mainFooter.innerHTML.trim()) {
-            mainFooter.innerHTML = data;
-        }
-    });
+  document.querySelectorAll('form[data-brief]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const note = form.querySelector('.form__note');
+      const btn = form.querySelector('button[type="submit"]');
+      const say = (text, kind) => {
+        note.textContent = text;
+        note.classList.toggle('is-ok', kind === 'ok');
+        note.classList.toggle('is-err', kind === 'err');
+      };
 
-function initNavbar() {
-    const hamburger = document.querySelector('.hamburger');
-    const drawer = document.querySelector('.mobile-drawer');
-    const overlay = document.querySelector('.drawer-overlay');
-    const closeBtn = document.querySelector('.drawer-close');
-    const dropdownToggle = document.querySelector('.drawer-dropdown-toggle');
-    const dropdown = document.querySelector('.drawer-dropdown');
+      if (!form.checkValidity()) {
+        say('Please add your name and a valid email.', 'err');
+        form.reportValidity();
+        return;
+      }
 
-    if (!hamburger) return;
+      const data = new FormData(form);
+      const needs = data.getAll('need').join(', ') || 'Not specified';
+      const lines = [
+        `Needs: ${needs}`,
+        data.get('company') ? `Company: ${data.get('company')}` : '',
+        data.get('phone') ? `Phone: ${data.get('phone')}` : '',
+        data.get('timeline') ? `Timeline: ${data.get('timeline')}` : '',
+        '',
+        'Project details:',
+        data.get('message') || '(none)',
+      ].filter((l, i) => l !== '' || i === 4);
 
-    hamburger.addEventListener('click', () => {
-        drawer.classList.add('open');
-        overlay.classList.add('active');
-        document.body.style.overflow = "hidden";
-    });
-
-    function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('active');
-        document.body.style.overflow = "";
-    }
-
-    closeBtn.addEventListener('click', closeDrawer);
-    overlay.addEventListener('click', closeDrawer);
-
-    // Dropdown toggle
-    if (dropdownToggle) {
-        dropdownToggle.addEventListener('click', () => {
-            dropdown.classList.toggle('open');
+      const label = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: `New project brief: ${needs}`,
+            from_name: 'PRXDEVS website',
+            name: data.get('name'),
+            email: data.get('email'),
+            message: lines.join('\n'),
+          }),
         });
-    }
-}
-
-// mail script for contact form
-/* ---------------- CONTACT FORM SUBMIT ---------------- */
-
-/* ================= CONTACT FORMS ================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const WEB3FORMS_ACCESS_KEY = "2d3dbf16-9006-4e72-86b1-d5977ca9ce9d";
-
-    // Shared function to send form
-    function sendForm(name, email, message, formElement, buttonElement, originalText) {
-
-        fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                access_key: WEB3FORMS_ACCESS_KEY,
-                subject: "New Inquiry from PRXDEVS Website",
-                name: name,
-                email: email,
-                message: message
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Inquiry sent successfully!");
-                    formElement.reset();
-                } else {
-                    throw new Error(data.message);
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Something went wrong. Please try again.");
-            })
-            .finally(() => {
-                buttonElement.innerText = originalText;
-                buttonElement.disabled = false;
-            });
-    }
-
-    /* ------------ CONTACT PAGE FORM ------------ */
-
-    const contactForm = document.getElementById("contactForm");
-
-    if (contactForm) {
-
-        contactForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const submitBtn = contactForm.querySelector(".cta-btn");
-            const originalText = submitBtn.innerText;
-
-            submitBtn.innerText = "Sending...";
-            submitBtn.disabled = true;
-
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const company = document.getElementById("company").value;
-            const service = document.getElementById("service").value;
-            const timeline = document.getElementById("timeline").value;
-            const message = document.getElementById("message").value;
-
-            const finalMessage = `
-Company: ${company}
-Service: ${service}
-Timeline: ${timeline}
-
-Project Details:
-${message}
-            `;
-
-            sendForm(name, email, finalMessage, contactForm, submitBtn, originalText);
-        });
-    }
-
-    /* ------------ FOOTER FORM ------------ */
-
-    // The footer is injected later via fetch('/footer.html'), so the form doesn't
-    // exist yet at DOMContentLoaded. Listen on document instead — submit events
-    // bubble, so this catches the footer form whenever it gets added.
-    document.addEventListener("submit", function (event) {
-        const footerForm = event.target;
-        if (footerForm.id !== "footerContactForm") return;
-
-        event.preventDefault();
-
-        const submitBtn = footerForm.querySelector(".cta-btn");
-        const originalText = submitBtn.innerText;
-
-        submitBtn.innerText = "Sending...";
-        submitBtn.disabled = true;
-
-        const name = document.getElementById("footerName").value;
-        const email = document.getElementById("footerEmail").value;
-        const service = document.getElementById("footerService").value;
-        const message = document.getElementById("footerMessage").value;
-
-        const finalMessage = `
-Service: ${service}
-
-Project Details:
-${message}
-            `;
-
-        sendForm(name, email, finalMessage, footerForm, submitBtn, originalText);
+        const out = await res.json();
+        if (!out.success) throw new Error(out.message || 'Send failed');
+        form.reset();
+        say('Thanks! Your brief is in. We’ll reply within 24 hours.', 'ok');
+      } catch (err) {
+        console.error(err);
+        say('Something went wrong. Please email prxdevs@gmail.com instead.', 'err');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = label;
+      }
     });
-
-});
+  });
+})();

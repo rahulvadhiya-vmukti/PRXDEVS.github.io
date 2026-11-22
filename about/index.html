@@ -1,158 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | PRXDEVS</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/assets/images/prx.PNG">
-    <link rel="apple-touch-icon" href="/assets/images/prx.PNG">
-
-    <!-- Main Global Styles -->
-    <link rel="stylesheet" href="/style.css">
-
-    <!-- About Page Styles -->
-    <link rel="stylesheet" href="/assets/css/about.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About PRXDEVS | Website &amp; Software Studio in Ahmedabad</title>
+<meta name="description" content="PRXDEVS is a website and software studio in Ahmedabad. One team for websites, logos, software, SEO and ads, all custom-built for each client.">
+<meta name="author" content="PRXDEVS">
+<link rel="canonical" href="https://www.prxdevs.com/about/">
+<link rel="icon" type="image/png" href="/assets/images/prx.PNG">
+<link rel="apple-touch-icon" href="/assets/images/prx.PNG">
+<meta property="og:title" content="About PRXDEVS | Website &amp; Software Studio in Ahmedabad">
+<meta property="og:description" content="PRXDEVS is a website and software studio in Ahmedabad. One team for websites, logos, software, SEO and ads, all custom-built for each client.">
+<meta property="og:image" content="https://www.prxdevs.com/assets/images/prx.PNG">
+<meta property="og:url" content="https://www.prxdevs.com/about/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About PRXDEVS | Website &amp; Software Studio in Ahmedabad">
+<meta name="twitter:description" content="PRXDEVS is a website and software studio in Ahmedabad. One team for websites, logos, software, SEO and ads, all custom-built for each client.">
+<meta name="twitter:image" content="https://www.prxdevs.com/assets/images/prx.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
-    <!-- <div id="cursor"></div> -->
-    <!-- Navigation (same as home) -->
-    <!-- <nav>
-        <a href="/" style="text-decoration: none; color: inherit;">
-            <a href="/" style="text-decoration: none; color: inherit;">
-                <div class="logo">PRXDEVS</div>
-            </a>
-        </a>
-        <div class="nav-right">
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About</a></li>
-                <li class="dropdown">
-                    <a href="#">Services</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/services/websoftware/">Web & Software</a></li>
-                        <li><a href="/services/aisolutions/">AI Solutions</a></li>
-                        <li><a href="/services/branding/">Branding & Identity</a></li>
-                        <li><a href="/services/graphic/">Graphic Design</a></li>
-                    </ul>
-                </li>
-                <li><a href="/work/">Work</a></li>
-            </ul>
-            <a href="/contact/" class="cta-btn">Start a Project</a>
-        </div>
-    </nav> -->
+<a class="skip" href="#main">Skip to content</a>
 
-    <div id="header-placeholder"></div>
-    <main>
+<header class="nav" id="nav">
+  <a class="brand" href="/" aria-label="PRXDEVS home">
+    <span class="brand__mark"><img src="/assets/images/prx.PNG" alt=""></span>
+    <span class="brand__word">PRXDEVS</span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="/work/">Work</a>
+    <div class="dd">
+      <button class="dd__btn" type="button" aria-expanded="false" aria-controls="ddServices">Services</button>
+      <div class="dd__panel" id="ddServices"><a href="/services/web-development/" class="is-main"><b>Website development</b><span>Websites, online stores &amp; software</span></a><a href="/services/branding-logo-design/"><b>Logo &amp; branding</b><span>Logos and brand identities</span></a><a href="/services/seo-ads/"><b>SEO &amp; ads</b><span>SEO, Google Ads and Meta Ads</span></a><a href="/services/graphic-design/"><b>Graphic design</b><span>Social, ads, print and packaging</span></a><a href="/services/ai-solutions/"><b>AI solutions</b><span>Chatbots and automation</span></a></div>
+    </div>
+    <a href="/about/" aria-current="page">About</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <div class="nav__right">
+    <span class="clock" aria-label="Local time in Ahmedabad"><span class="clock__dot"></span>Ahmedabad <b id="clock">--:--</b> IST</span>
+    <a class="btn btn--ink btn--sm" href="/contact/">Start a project</a>
+    <button class="nav__menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <a href="/">Home</a><a href="/work/">Work</a>
+    <p class="mm__label">Services</p><a class="mm__sub" href="/services/web-development/">Website development</a><a class="mm__sub" href="/services/branding-logo-design/">Logo &amp; branding</a><a class="mm__sub" href="/services/seo-ads/">SEO &amp; ads</a><a class="mm__sub" href="/services/graphic-design/">Graphic design</a><a class="mm__sub" href="/services/ai-solutions/">AI solutions</a>
+    <a href="/about/">About</a><a href="/contact/">Contact</a>
+    <a class="btn btn--ink" href="/contact/">Start a project</a>
+  </div>
+</header>
 
-        <!-- HERO -->
-        <section class="about-hero">
-            <div class="about-hero-inner">
-                <span class="about-label">⚫ WHO WE ARE</span>
-                <h1>
-                    We Don’t Just Build Brands. <br>
-                    We Engineer Complete Digital Ecosystems.
-                </h1>
-                <p>
-                    PRXDEVS is a multi-disciplinary tech & design studio mastering the entire digital spectrum —
-                    from branding and visual identity systems to scalable software architectures and advanced AI
-                    integration.
-                </p>
-            </div>
-        </section>
+<section class="phero" data-section="hero">
+  <div class="phero__copy">
+    <p class="crumbs" data-reveal><a href="/">Home</a> / About</p>
+    <h1 data-reveal style="--d:.06s">One team. <span class="hl">Every layer.</span></h1>
+    <p class="phero__lede" data-reveal style="--d:.12s">PRXDEVS is a website and software studio in <b>Ahmedabad</b>. We design, build and grow digital products for businesses in India and around the world.</p>
+  </div>
+  <div class="phero__visual" data-desk aria-hidden="true">
+    <div class="win win--site" data-win style="left:12%; top:0; width:88%">
+      <div class="win__bar" data-drag><span class="win__dots"><i></i><i></i><i></i></span><span class="tabs" aria-hidden="true"><span class="tab is-on">DRM</span><span class="tab">FTR</span><span class="tab">GCCI GATE</span></span><span class="pill pill--live"><span></span>Live</span></div>
+      <div class="win__body win__body--img reel" aria-label="Websites built by PRXDEVS"><img class="is-on" src="/assets/images/dwarkeshricemill.webp" alt="Shree Dwarkesh Rice Mill website"><img src="/assets/images/ftright.webp" alt="FTR · First Time Right website"><img src="/assets/images/gccigate.webp" alt="GCCI GATE website"></div>
+    </div>
+    <div class="win win--vector" data-win style="left:0; top:48%; width:46%">
+      <div class="win__bar" data-drag><span class="win__dots"><i></i><i></i><i></i></span><span class="win__name">mark.svg</span><span class="pill ">Pen tool</span></div>
+      <div class="win__body vector">
+        <svg viewBox="0 0 200 165" role="img" aria-label="A logo mark being drawn with the pen tool">
+          <g class="vector__ink"><path d="M30 18 L178 18 L131 78"/><path d="M30 18 L174 150"/><path d="M86 118 L40 148"/></g>
+          <g class="vector__sel"><path d="M30 18 L178 18 L131 78"/><path d="M30 18 L174 150"/><path d="M86 118 L40 148"/><line x1="131" y1="78" x2="158" y2="96" class="vector__handle"/><circle cx="158" cy="96" r="3" class="vector__knob"/></g>
+          <g class="vector__anchors"><rect x="27" y="15" width="6" height="6"/><rect x="175" y="15" width="6" height="6"/><rect x="128" y="75" width="6" height="6"/><rect x="171" y="147" width="6" height="6"/><rect x="83" y="115" width="6" height="6"/><rect x="37" y="145" width="6" height="6"/></g>
+          <circle cx="112" cy="40" r="7" class="vector__dot"/>
+        </svg>
+      </div>
+    </div>
+    <div class="sticky" data-win style="left:56%; top:62%"><span class="sticky__tape" aria-hidden="true"></span>rule #1:<br>no templates.<br>ever.</div>
+  </div>
+</section>
+<dl class="numbers">
+  <div><dt>Years building</dt><dd>4+</dd></div>
+  <div><dt>Projects delivered</dt><dd>250+</dd></div>
+  <div><dt>Custom, zero templates</dt><dd>100%</dd></div>
+  <div><dt>Reply time</dt><dd>24h</dd></div>
+</dl>
+<main id="main">
+<section class="section">
+  <p class="label" style="margin-bottom:24px">Our philosophy</p>
+  <p class="manifesto">Design shapes how you’re seen. Code makes it work. <span class="hl">We do both.</span></p>
+  <div class="prose" style="margin-top:36px">
+    <p>Most businesses end up juggling a designer, a developer and a marketing agency, and the gaps between them are where projects go wrong. At PRXDEVS, <b>one team takes care of every layer</b>: the logo, the website, the software behind it and the SEO and ads that bring customers in.</p>
+    <p>And everything is <b>made for you</b>. We don’t start from templates. Each project is designed and built from scratch around your requirements, so it fits your business 100%.</p>
+  </div>
+</section>
 
-        <!-- CORE SECTION -->
-        <section class="about-core">
-            <div class="about-core-container">
+<section class="section">
+  <div class="section__head"><p class="label">What we master</p><h2 class="h2">Our core <span class="hl">strengths.</span></h2></div>
+  <div class="cards cards--4">
+    <article class="fcard fcard--ink"><span class="fcard__num">MAIN</span><h3>Websites &amp; software</h3><p>Custom websites, online stores and business systems, built to scale.</p></article>
+    <article class="fcard"><span class="fcard__num">02</span><h3>Logos &amp; branding</h3><p>Logos, identity systems and packaging people remember.</p></article>
+    <article class="fcard"><span class="fcard__num">03</span><h3>SEO &amp; ads</h3><p>Google, Instagram and Facebook campaigns that bring customers in.</p></article>
+    <article class="fcard"><span class="fcard__num">04</span><h3>Design &amp; AI</h3><p>Graphics, social creatives and AI chatbots that save time.</p></article>
+  </div>
+</section>
 
-                <div class="core-left">
-                    <h2>Mastery Across Every Layer</h2>
-                </div>
+<section class="section">
+  <div class="section__head"><p class="label">How we work</p><h2 class="h2">What you can <span class="hl">count on.</span></h2></div>
+  <ul class="ticks">
+    <li>100% custom work</li><li>One team, no hand-offs</li><li>Clear quotes</li>
+    <li>Your approval at every step</li><li>Reply within 24 hours</li><li>Support after launch</li>
+  </ul>
+</section>
+</main>
 
-                <div class="core-right">
-                    <p>
-                        At PRXDEVS, we specialize in the complete lifecycle of digital creation.
-                        From logo design and branding architecture to full-scale web applications,
-                        enterprise software, and intelligent AI-powered systems — we execute with precision.
-                    </p>
+<footer class="footer" data-section="footer">
+  <div class="footer__cta">
+    <p class="footer__big">Let’s build what’s next.</p>
+    <a class="btn btn--amber" href="/contact/">Start a project <span class="btn__arrow" aria-hidden="true">→</span></a>
+  </div>
+  <div class="footer__cols">
+    <div><h4>Services</h4><ul><li><a href="/services/web-development/">Website development</a></li><li><a href="/services/branding-logo-design/">Logo &amp; branding</a></li><li><a href="/services/seo-ads/">SEO, Google &amp; Meta Ads</a></li><li><a href="/services/graphic-design/">Graphic design</a></li><li><a href="/services/ai-solutions/">AI solutions</a></li></ul></div>
+    <div><h4>Studio</h4><ul><li><a href="/work/">Work</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+    <div><h4>Say hi</h4><ul><li><a href="mailto:prxdevs@gmail.com">prxdevs@gmail.com</a></li><li><a href="tel:+916353111919">+91 63531 11919</a></li><li><a href="https://www.linkedin.com/in/prx-devs-a39a8b248/">LinkedIn</a></li><li><a href="https://www.instagram.com/prx.devs/">Instagram</a></li><li><a href="https://www.behance.net/prxdevs">Behance</a></li><li><a href="https://in.pinterest.com/prxdevs/">Pinterest</a></li></ul></div>
+  </div>
+  <p class="footer__word" aria-hidden="true">PRXDEVS</p>
+  <div class="footer__bottom"><span>© 2026 PRXDEVS · Ahmedabad, India</span><span>Designed &amp; built in-house, 100% custom</span></div>
+</footer>
 
-                    <p>
-                        Our strength lies in understanding how every layer connects.
-                        Design influences perception. Engineering ensures scalability.
-                        AI introduces intelligence.
-                        We merge them into one cohesive digital system.
-                    </p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- CAPABILITIES -->
-        <section class="about-capabilities">
-            <div class="cap-header">
-                <h2>What We Master</h2>
-                <p>Our core strengths that power every project.</p>
-            </div>
-
-            <div class="cap-grid">
-
-                <div class="cap-card">
-                    <h3>Brand & Identity Systems</h3>
-                    <p>Logo design, brand architecture, full visual ecosystems and strategic identity frameworks.</p>
-                </div>
-
-                <div class="cap-card">
-                    <h3>Web & Software Engineering</h3>
-                    <p>Scalable MERN architectures, enterprise-grade platforms, and custom-built digital systems.</p>
-                </div>
-
-                <div class="cap-card">
-                    <h3>AI Systems & Integration</h3>
-                    <p>LLM integration, automation workflows, intelligent product embedding, and AI-driven solutions.
-                    </p>
-                </div>
-
-                <div class="cap-card">
-                    <h3>Creative & Visual Strategy</h3>
-                    <p>High-end graphics, digital campaigns, animation, and performance-focused design execution.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- PHILOSOPHY -->
-        <section class="about-philosophy">
-            <div class="philosophy-inner">
-                <h2>Our Philosophy</h2>
-                <p>
-                    Mastery is not about offering many services.
-                    It is about understanding how they connect.
-                </p>
-                <p>
-                    At PRXDEVS, every project is treated as a unified system —
-                    not isolated deliverables.
-                </p>
-                <p>
-                    Strategy. Design. Engineering. Intelligence.
-                    Executed with clarity and long-term scalability.
-                </p>
-            </div>
-        </section>
-
-        <!-- FOOTER (reuse from home for consistency) -->
-        <footer id="footer-placeholder" class="main-footer reveal">
-            <!-- Footer will be loaded here from footer.html -->
-        </footer>
-
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="/script.js"></script>
+<script src="/script.js"></script>
 </body>
-
 </html>
